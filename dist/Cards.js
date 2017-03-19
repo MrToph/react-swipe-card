@@ -39,7 +39,6 @@ var SwipeCards = function (_Component) {
     var _this = _possibleConstructorReturn(this, (SwipeCards.__proto__ || Object.getPrototypeOf(SwipeCards)).call(this, props));
 
     _this.state = {
-      index: 0,
       alertLeft: false,
       alertRight: false,
       alertTop: false,
@@ -53,32 +52,18 @@ var SwipeCards = function (_Component) {
 
   _createClass(SwipeCards, [{
     key: 'removeCard',
-    value: function removeCard(side, cardId) {
+    value: function removeCard(side) {
       var _this2 = this;
 
       var _props = this.props,
           children = _props.children,
           onEnd = _props.onEnd;
 
+      this.setState(_defineProperty({}, 'alert' + side, true));
+
       setTimeout(function () {
         return _this2.setState(_defineProperty({}, 'alert' + side, false));
       }, 300);
-
-      if (children.length === this.state.index + 1 && onEnd) onEnd();
-
-      this.setState(_defineProperty({
-        index: this.state.index + 1
-      }, 'alert' + side, true));
-    }
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      if (nextProps.children !== this.props.children) {
-        // reset
-        this.setState({
-          index: 0
-        });
-      }
     }
   }, {
     key: 'componentDidMount',
@@ -106,9 +91,7 @@ var SwipeCards = function (_Component) {
     value: function render() {
       var _this3 = this;
 
-      var _state = this.state,
-          index = _state.index,
-          containerSize = _state.containerSize;
+      var containerSize = this.state.containerSize;
       var _props2 = this.props,
           children = _props2.children,
           className = _props2.className,
@@ -118,19 +101,18 @@ var SwipeCards = function (_Component) {
       if (!containerSize.x || !containerSize.y) return _react2.default.createElement('div', { className: className });
 
       var _cards = children.reduce(function (memo, c, i) {
-        if (index > i) return memo;
         var props = _extends({
           key: i,
           containerSize: containerSize,
-          index: children.length - index
+          index: i
         }, _utils.DIRECTIONS.reduce(function (m, d) {
           return _extends({}, m, _defineProperty({}, 'onOutScreen' + d, function undefined() {
             return _this3.removeCard(d);
           }));
         }, {}), {
-          active: index === i
+          active: i === 0
         });
-        return [(0, _react.cloneElement)(c, props)].concat(_toConsumableArray(memo));
+        return [].concat(_toConsumableArray(memo), [(0, _react.cloneElement)(c, props)]);
       }, []);
 
       return _react2.default.createElement(
