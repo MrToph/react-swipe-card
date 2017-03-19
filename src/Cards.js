@@ -27,6 +27,15 @@ class SwipeCards extends Component {
       [`alert${side}`]: true
     })
   }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.children !== this.props.children) {
+      // reset
+      this.setState({
+        index: 0,
+      })
+    }
+  }
   
   componentDidMount () {
     this.setSize()
