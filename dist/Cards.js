@@ -55,10 +55,6 @@ var SwipeCards = function (_Component) {
     value: function removeCard(side) {
       var _this2 = this;
 
-      var _props = this.props,
-          children = _props.children,
-          onEnd = _props.onEnd;
-
       this.setState(_defineProperty({}, 'alert' + side, true));
 
       setTimeout(function () {
@@ -92,17 +88,16 @@ var SwipeCards = function (_Component) {
       var _this3 = this;
 
       var containerSize = this.state.containerSize;
-      var _props2 = this.props,
-          children = _props2.children,
-          className = _props2.className,
-          onSwipeTop = _props2.onSwipeTop,
-          onSwipeBottom = _props2.onSwipeBottom;
+      var _props = this.props,
+          children = _props.children,
+          className = _props.className,
+          onSwipeTop = _props.onSwipeTop,
+          onSwipeBottom = _props.onSwipeBottom;
 
       if (!containerSize.x || !containerSize.y) return _react2.default.createElement('div', { className: className });
 
       var _cards = children.reduce(function (memo, c, i) {
         var props = _extends({
-          key: i,
           containerSize: containerSize,
           index: children.length
         }, _utils.DIRECTIONS.reduce(function (m, d) {

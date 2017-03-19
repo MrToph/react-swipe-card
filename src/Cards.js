@@ -17,7 +17,6 @@ class SwipeCards extends Component {
   }
 
   removeCard (side) {
-    const { children, onEnd } = this.props
     this.setState({
       [`alert${side}`]: true
     })
@@ -50,7 +49,6 @@ class SwipeCards extends Component {
 
     const _cards = children.reduce((memo, c, i) => {
       const props = {
-        key: i,
         containerSize,
         index: children.length,
         ...DIRECTIONS.reduce((m, d) => ({ ...m, [`onOutScreen${d}`]: () => this.removeCard(d) }), {}),
