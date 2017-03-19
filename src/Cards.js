@@ -52,11 +52,11 @@ class SwipeCards extends Component {
       const props = {
         key: i,
         containerSize,
-        index: i,
+        index: children.length,
         ...DIRECTIONS.reduce((m, d) => ({ ...m, [`onOutScreen${d}`]: () => this.removeCard(d) }), {}),
         active: i === 0
       }
-      return [ ...memo, cloneElement(c, props) ]
+      return [ cloneElement(c, props), ...memo ]
     }, [])
     
     return (
