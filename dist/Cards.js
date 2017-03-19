@@ -104,7 +104,7 @@ var SwipeCards = function (_Component) {
         var props = _extends({
           key: i,
           containerSize: containerSize,
-          index: i
+          index: children.length
         }, _utils.DIRECTIONS.reduce(function (m, d) {
           return _extends({}, m, _defineProperty({}, 'onOutScreen' + d, function undefined() {
             return _this3.removeCard(d);
@@ -112,7 +112,7 @@ var SwipeCards = function (_Component) {
         }, {}), {
           active: i === 0
         });
-        return [].concat(_toConsumableArray(memo), [(0, _react.cloneElement)(c, props)]);
+        return [(0, _react.cloneElement)(c, props)].concat(_toConsumableArray(memo));
       }, []);
 
       return _react2.default.createElement(
